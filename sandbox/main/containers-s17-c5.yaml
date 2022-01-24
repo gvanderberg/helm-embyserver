@@ -1,0 +1,421 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: emby
+spec:
+  selector:
+    matchLabels:
+      app: emby
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: emby
+    spec: 
+
+      containers:
+      - name: emby
+        image: emby/embyserver
+        ports:
+        - containerPort: 8096
+        volumeMounts: 
+        - name: media-movies-17
+          mountPath: "/mnt/media-movies"
+        - name: media-series-17
+          mountPath: "/mnt/media-series"
+        - name: audiobooks-17
+          mountPath: "/books"
+        - name: config-emby-5
+          mountPath: "/config"
+      volumes: 
+      - name: media-movies-17
+        persistentVolumeClaim:
+         claimName: media-movies-17
+      - name: media-series-17
+        persistentVolumeClaim:
+         claimName: media-series-17
+      - name: audiobooks-17
+        persistentVolumeClaim:
+         claimName: audiobooks-17
+      - name: config-emby-5
+        persistentVolumeClaim:
+         claimName: config-emby-5
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: transmission
+spec:
+  selector:
+    matchLabels:
+      app: transmission
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec: 
+
+      containers:
+      - name: transmission
+        image: linuxserver/transmission
+        ports:
+        - containerPort: 9091
+        - containerPort: 8000
+        volumeMounts: 
+        - name: config-transmission-5
+          mountPath: "/config"
+        - name: media-unsorted-17
+          mountPath: "/downloads"
+      volumes: 
+      - name: config-transmission-5
+        persistentVolumeClaim:
+         claimName: config-transmission-5
+      - name: media-unsorted-17
+        persistentVolumeClaim:
+         claimName: media-unsorted-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: deluge
+spec:
+  selector:
+    matchLabels:
+      app: deluge
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: deluge
+    spec: 
+
+      containers:
+      - name: deluge
+        image: linuxserver/deluge
+        ports: 
+        - containerPort: 8112
+        - containerPort: 58846
+        - containerPort: 58946
+        volumeMounts: 
+        - name: config-deluge-5
+          mountPath: "/config"
+        - name: media-unsorted-deluge-17
+          mountPath: "/downloads"
+      volumes: 
+      - name: config-deluge-5
+        persistentVolumeClaim:
+         claimName: config-deluge-5
+      - name: media-unsorted-deluge-17
+        persistentVolumeClaim:
+         claimName: media-unsorted-deluge-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: sonarr
+spec:
+  selector:
+    matchLabels:
+      app: sonarr
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec: 
+
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr
+        ports: 
+        - containerPort: 8989
+        volumeMounts: 
+        - name: config-sonarr-5
+          mountPath: "/config"
+        - name: media-unsorted-17
+          mountPath: "/downloads"
+        - name: media-series-17
+          mountPath: "/tv"
+        - name: media-kids-series-17
+          mountPath: "/tv-kids-series"
+      volumes: 
+      - name: config-sonarr-5
+        persistentVolumeClaim:
+         claimName: config-sonarr-5
+      - name: media-unsorted-17
+        persistentVolumeClaim:
+         claimName: media-unsorted-17
+      - name: media-series-17
+        persistentVolumeClaim:
+         claimName: media-series-17
+      - name: media-kids-series-17
+        persistentVolumeClaim:
+         claimName: media-kids-series-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: radarr
+spec:
+  selector:
+    matchLabels:
+      app: radarr
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec: 
+
+      containers:
+      - name: radarr
+        image: linuxserver/radarr
+        ports: 
+        - containerPort: 7878
+        volumeMounts: 
+        - name: config-radarr-5
+          mountPath: "/config"
+        - name: media-unsorted-17
+          mountPath: "/downloads"
+        - name: media-movies-17
+          mountPath: "/movies"
+      volumes: 
+      - name: config-radarr-5
+        persistentVolumeClaim:
+         claimName: config-radarr-5
+      - name: media-unsorted-17
+        persistentVolumeClaim:
+         claimName: media-unsorted-17
+      - name: media-movies-17
+        persistentVolumeClaim:
+         claimName: media-movies-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: jackett
+spec:
+  selector:
+    matchLabels:
+      app: jackett
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: jackett
+    spec: 
+
+      containers:
+      - name: jackett
+        image: linuxserver/jackett
+        ports: 
+        - containerPort: 9117
+        volumeMounts: 
+        - name: config-jackett-5
+          mountPath: "/config"
+      volumes: 
+      - name: config-jackett-5
+        persistentVolumeClaim:
+         claimName: config-jackett-5
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: booksonic
+spec:
+  selector:
+    matchLabels:
+      app: booksonic
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: booksonic
+    spec: 
+
+      containers:
+      - name: booksonic
+        image: linuxserver/booksonic
+        ports: 
+        - containerPort: 4040
+        volumeMounts: 
+        - name: config-booksonic-5
+          mountPath: "/config"
+        - name: audiobooks-17
+          mountPath: "/books"
+      volumes: 
+      - name: config-booksonic-5
+        persistentVolumeClaim:
+         claimName: config-booksonic-5
+      - name: audiobooks-17
+        persistentVolumeClaim:
+         claimName: audiobooks-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: calibre-web
+spec:
+  selector:
+    matchLabels:
+      app: calibre-web
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: calibre-web
+    spec: 
+
+      containers:
+      - name: calibre-web
+        image: linuxserver/calibre-web
+        ports: 
+        - containerPort: 8083
+        volumeMounts: 
+        - name: config-calibre-web-5
+          mountPath: "/config"
+        - name: ebooks-17
+          mountPath: "/books"
+      volumes: 
+      - name: config-calibre-web-5
+        persistentVolumeClaim:
+         claimName: config-calibre-web-5
+      - name: ebooks-17
+        persistentVolumeClaim:
+         claimName: ebooks-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: lazylibrarian-calibre
+spec:
+  selector:
+    matchLabels:
+      app: lazylibrarian-calibre
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: lazylibrarian-calibre
+    spec: 
+
+      containers:
+      - name: lazylibrarian-calibre
+        image: thraxis/lazylibrarian-calibre
+        ports: 
+        - containerPort: 5299
+        volumeMounts: 
+        - name: config-lazy-librarian-calibre-5
+          mountPath: "/config"
+        - name: ebooks-17
+          mountPath: "/books"
+        - name: audiobooks-17
+          mountPath: "/audiobook"
+        - name: magazines-17
+          mountPath: "/magazines"
+        - name: magazines-dl-17
+          mountPath: "/magazines-dl"
+        - name: books-unsorted-ll-17
+          mountPath: "/books-unsorted"
+      volumes: 
+      - name: config-lazy-librarian-calibre-5
+        persistentVolumeClaim:
+         claimName: config-lazy-librarian-calibre-5
+      - name: ebooks-17
+        persistentVolumeClaim:
+         claimName: ebooks-17
+      - name: audiobooks-17
+        persistentVolumeClaim:
+         claimName: audiobooks-17
+      - name: magazines-17
+        persistentVolumeClaim:
+         claimName: magazines-17
+      - name: magazines-dl-17
+        persistentVolumeClaim:
+         claimName: magazines-dl-17
+      - name: books-unsorted-ll-17
+        persistentVolumeClaim:
+         claimName: books-unsorted-ll-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: calibre
+spec:
+  selector:
+    matchLabels:
+      app: calibre
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: calibre
+    spec: 
+
+      containers:
+      - name: calibre
+        image: linuxserver/calibre
+        ports: 
+        - containerPort: 8080
+        - containerPort: 8081
+        volumeMounts: 
+        - name: config-calibre-web-5
+          mountPath: "/config"
+        - name: ebooks-17
+          mountPath: "/books"
+        - name: magazines-17
+          mountPath: "/magazines"
+        - name: magazines-dl-17
+          mountPath: "/magazines-dl"
+        - name: books-unsorted-calibre-17
+          mountPath: "/books-unsorted"
+      volumes: 
+      - name: config-calibre-web-5
+        persistentVolumeClaim:
+         claimName: config-calibre-web-5
+      - name: ebooks-17
+        persistentVolumeClaim:
+         claimName: ebooks-17
+      - name: magazines-17
+        persistentVolumeClaim:
+         claimName: magazines-17
+      - name: magazines-dl-17
+        persistentVolumeClaim:
+         claimName: magazines-dl-17
+      - name: books-unsorted-calibre-17
+        persistentVolumeClaim:
+         claimName: books-unsorted-calibre-17
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: calibre-web-magz
+spec:
+  selector:
+    matchLabels:
+      app: calibre-web-magz
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: calibre-web-magz
+    spec: 
+
+      containers:
+      - name: calibre-web-magz
+        image: linuxserver/calibre-web
+        ports: 
+        - containerPort: 8083
+        volumeMounts: 
+        - name: config-calibre-web-magz-5
+          mountPath: "/config"
+        - name: magazines-17
+          mountPath: "/magazines"
+      volumes: 
+      - name: config-calibre-web-magz-5
+        persistentVolumeClaim:
+         claimName: config-calibre-web-magz-5
+      - name: magazines-17
+        persistentVolumeClaim:
+         claimName: magazines-17

@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xoce
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: xoce
+subsets:
+  - addresses:
+      - ip: 192.168.0.18
+    ports:
+      - port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: idrac6
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: idrac6
+subsets:
+  - addresses:
+      - ip: 100.100.100.6
+    ports:
+      - port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: router
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: router
+subsets:
+  - addresses:
+      - ip: 192.168.0.1
+    ports:
+      - port: 80

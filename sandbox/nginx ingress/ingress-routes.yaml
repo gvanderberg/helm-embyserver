@@ -1,0 +1,185 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: emby-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - emby.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: emby.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: emby
+          servicePort: 8096
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: transmission-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - transmission.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: transmission.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: transmission
+          servicePort: 9091
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: sonarr-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - sonarr.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: sonarr.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: sonarr
+          servicePort: 8989
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: radarr-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - radarr.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: radarr.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: radarr
+          servicePort: 7878
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: jackett-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - jackett.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: jackett.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: jackett
+          servicePort: 9117
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: xoce-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - xoce.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: xoce.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: xoce
+          servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: idrac6-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - idrac6.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: idrac6.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: idrac6
+          servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: router-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - router.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: router.my-net.co.za
+    http:
+      paths:
+      - backend:
+          serviceName: router
+          servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: books-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - books.my-net.co.za
+    secretName: home-tls
+  rules:
+  - host: books.my-net.co.za
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: booksonic
+          servicePort: 4040
+      - path: /ebook
+        backend:
+          serviceName: calibre-web
+          servicePort: 8083

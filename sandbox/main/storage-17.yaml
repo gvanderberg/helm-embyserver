@@ -1,0 +1,646 @@
+###########################################################
+#########Volume Mounts - Data##############################
+###########################################################
+
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-media-movies-17
+  labels:
+   data: media-movies-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Media-Movies
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: media-movies-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: media-movies-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-media-series-17
+  labels:
+   data: media-series-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Media-Series
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: media-series-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: media-series-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-media-kids-series-17
+  labels:
+   data: media-kids-series-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Kids-Series
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: media-kids-series-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: media-kids-series-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-media-unsorted-17
+  labels:
+   data: media-unsorted-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Media-Unsorted
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: media-unsorted-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: media-unsorted-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-media-unsorted-deluge-17
+  labels:
+   data: media-unsorted-deluge-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Media-Unsorted/Deluge
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: media-unsorted-deluge-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: media-unsorted-deluge-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-audiobooks-17
+  labels:
+   data: audiobooks-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Books/AudioBooks
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: audiobooks-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: audiobooks-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-ebooks-17
+  labels:
+   data: ebooks-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Books/EBooks
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: ebooks-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: ebooks-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-magazines-17
+  labels:
+   data: magazines-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Books/Magazines
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: magazines-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: magazines-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-magazines-dl-17
+  labels:
+   data: magazines-dl-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Books/Magazines-DL
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: magazines-dl-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: magazines-dl-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-books-unsorted-ll-17
+  labels:
+   data: books-unsorted-ll-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Media-Unsorted/Books/books-unsorted
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: books-unsorted-ll-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: books-unsorted-ll-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-books-unsorted-calibre-17
+  labels:
+   data: books-unsorted-calibre-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Media-Unsorted/Books
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: books-unsorted-calibre-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: books-unsorted-calibre-17
+
+###########################################################
+#########Volume Mounts - Configs###########################
+###########################################################
+
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-emby-17
+  labels:
+   data: config-emby-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Emby
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-emby-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-emby-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-transmission-17
+  labels:
+   data: config-transmission-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Transmission
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-transmission-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-transmission-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-deluge-17
+  labels:
+   data: config-deluge-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Deluge
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-deluge-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-deluge-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-sonarr-17
+  labels:
+   data: config-sonarr-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Sonarr
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-sonarr-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-sonarr-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-radarr-17
+  labels:
+   data: config-radarr-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Radarr
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-radarr-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-radarr-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-booksonic-17
+  labels:
+   data: config-booksonic-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Booksonic
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-booksonic-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-booksonic-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-jackett-17
+  labels:
+   data: config-jackett-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Jackett
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-jackett-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-jackett-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-calibre-web-17
+  labels:
+   data: config-calibre-web-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Calibre-web
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-calibre-web-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-calibre-web-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-lazy-librarian-calibre-17
+  labels:
+   data: config-lazy-librarian-calibre-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Lazy-librarian-calibre
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-lazy-librarian-calibre-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-lazy-librarian-calibre-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-calibre-web-magz-17
+  labels:
+   data: config-calibre-web-magz-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Calibre-web-magz
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-calibre-web-magz-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-calibre-web-magz-17
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-config-traefik-17
+  labels:
+   data: config-traefik-17
+spec:
+  capacity:
+   storage: 1Pi   
+  accessModes: 
+  - ReadWriteMany
+  nfs:
+   server: 192.168.0.17
+   path: //mnt/Volume1/Configs/Traefik
+---
+apiVersion: v1 # for versions before 1.9.0 use apps/v1beta2
+kind: PersistentVolumeClaim
+metadata:
+  name: config-traefik-17
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+     data: config-traefik-17

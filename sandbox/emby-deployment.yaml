@@ -1,0 +1,183 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/name: emby
+  name: emby
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: emby
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+  labels:
+    app.kubernetes.io/name: emby
+  name: emby
+spec:
+  tls:
+  - hosts:
+    - emby.my-net.co.za
+    secretName: emby-tls
+  rules:
+  - host: emby.my-net.co.za
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: emby
+            port: 
+              number: 80
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app.kubernetes.io/name: emby
+    app.kubernetes.io/volumeType: config
+  name: emby-config
+spec:
+  capacity:
+   storage: 1Gi  
+  accessModes: 
+  - ReadWriteMany
+  hostPath:
+   path: /mnt
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app.kubernetes.io/name: emby
+  name: emby-config
+spec:
+  accessModes: 
+  - ReadWriteMany
+  resources:
+   requests:
+    storage: 1Gi
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: emby
+      app.kubernetes.io/volumeType: config
+  storageClassName: ""
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: emby
+  name: emby
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8096
+  selector:
+    app.kubernetes.io/name: emby
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: emby
+  name: emby
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: emby
+  name: emby
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: emby
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: emby
+    spec:
+      serviceAccountName: emby
+      containers:
+      - image: emby/embyserver:latest
+        name: emby
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sh
+              - -c
+              - sleep 5
+        ports:
+        - name: http
+          containerPort: 8096
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 20
+        resources: 
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
+        volumeMounts: 
+      #   - name: media-movies-35
+      #     mountPath: "/mnt/media-movies"
+      #   - name: media-series-35
+      #     mountPath: "/mnt/media-series"
+      #   - name: audiobooks-35
+      #     mountPath: "/books"
+        - name: emby-config
+          mountPath: /config
+      volumes: 
+      # - name: media-movies-35
+      #   persistentVolumeClaim:
+      #    claimName: media-movies-35
+      # - name: media-series-35
+      #   persistentVolumeClaim:
+      #    claimName: media-series-35
+      # - name: audiobooks-35
+      #   persistentVolumeClaim:
+      #    claimName: audiobooks-35
+      - name: emby-config
+        persistentVolumeClaim:
+         claimName: emby-config

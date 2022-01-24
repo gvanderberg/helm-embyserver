@@ -1,0 +1,238 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: emby
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8096
+    port: 8096
+    protocol: TCP
+    targetPort: 8096
+  selector:
+    app: emby
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booksonic
+  namespace: default
+spec:
+  ports:
+  - nodePort: 4040
+    port: 4040
+    protocol: TCP
+    targetPort: 4040
+  selector:
+    app: booksonic
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deluge
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8112
+    port: 8112
+    protocol: TCP
+    targetPort: 8112
+  selector:
+    app: deluge
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deluge-listening-port1
+  namespace: default
+spec:
+  ports:
+  - nodePort: 58846
+    port: 58846
+    protocol: TCP
+    targetPort: 58846
+  selector:
+    app: deluge
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deluge-listening-port2
+  namespace: default
+spec:
+  ports:
+  - nodePort: 58946
+    port: 58946
+    protocol: TCP
+    targetPort: 58946
+  selector:
+    app: deluge
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jackett
+  namespace: default
+spec:
+  ports:
+  - nodePort: 9117
+    port: 9117
+    protocol: TCP
+    targetPort: 9117
+  selector:
+    app: jackett
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radarr
+  namespace: default
+spec:
+  ports:
+  - nodePort: 7878
+    port: 7878
+    protocol: TCP
+    targetPort: 7878
+  selector:
+    app: radarr
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8989
+    port: 8989
+    protocol: TCP
+    targetPort: 8989
+  selector:
+    app: sonarr
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission
+  namespace: default
+spec:
+  ports:
+  - nodePort: 9091
+    port: 9091
+    protocol: TCP
+    targetPort: 9091
+  selector:
+    app: transmission
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission-listening-port
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8000
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: transmission
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibre-web
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8083
+    port: 8083
+    protocol: TCP
+    targetPort: 8083
+  selector:
+    app: calibre-web
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lazylibrarian-calibre
+  namespace: default
+spec:
+  ports:
+  - nodePort: 5299
+    port: 5299
+    protocol: TCP
+    targetPort: 5299
+  selector:
+    app: lazylibrarian-calibre
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibre
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8090
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: calibre
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibre-web-magz
+  namespace: default
+spec:
+  ports:
+  - nodePort: 8084
+    port: 8083
+    protocol: TCP
+    targetPort: 8083
+  selector:
+    app: calibre-web-magz
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
