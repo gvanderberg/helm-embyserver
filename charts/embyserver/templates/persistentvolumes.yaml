@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    {{- include "embyserver.labels" . | nindent 4 }}
+    app.kubernetes.io/volume-type: config
+  name: emby-config-pv
+spec:
+  capacity:
+   storage: 1Pi  
+  accessModes: 
+    - ReadWriteMany
+  nfs:
+   server: {{ required "The nfs.serverIp is required" .Values.nfs.serverIp }}
+   path: {{ required "The nfs.configPath is required" .Values.nfs.configPath }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    {{- include "embyserver.labels" . | nindent 4 }}
+    app.kubernetes.io/volume-type: media
+  name: emby-media-pv
+spec:
+  capacity:
+   storage: 1Pi  
+  accessModes: 
+    - ReadWriteMany
+  nfs:
+   server: {{ required "The nfs.serverIp is required" .Values.nfs.serverIp }}
+   path: {{ required "The nfs.mediaPath is required" .Values.nfs.mediaPath }}
